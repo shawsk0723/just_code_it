@@ -28,8 +28,6 @@ class ParkingResultWindow:
         style = ttk.Style()
         style.theme_use('clam')
 
-        # Add a Treeview widget
-
         self.win = win
 
     def setHeadRow(self, headRow):
@@ -54,8 +52,8 @@ class ParkingResultWindow:
 
 
 def test():
-    headRow = ("파킹 통장", "이자")
-    bodyRows = [('OK 세컨드', '55,000'), ('페퍼스 파킹 통장', '60,000')]
+    headRow = ["파킹 통장", "이자"]
+    bodyRows = [['OK 세컨드', '55,000'], ['페퍼스 파킹 통장', '60,000']]
 
     parkingResultWindow = ParkingResultWindow()
     parkingResultWindow.setHeadRow(headRow)

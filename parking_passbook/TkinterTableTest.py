@@ -11,6 +11,7 @@ win.geometry("700x350")
 # Create an object of Style widget
 style = ttk.Style()
 style.theme_use('clam')
+style.configure("Treeview.Heading", font=(None, 15))
 
 # Add a Treeview widget
 tree = ttk.Treeview(win, column=("FName", "LName", "Roll No"), show='headings', height=5)

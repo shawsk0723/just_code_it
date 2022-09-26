@@ -8,8 +8,8 @@ https://blog.naver.com/shawgibal
 from ParkingPassbook import *
 
 
-PB_NAME = "name"
-PB_INTEREST = "interest"
+PB_NAME = "이름"
+PB_INTEREST = "이자"
 
 class ParkingBank:
     def __init__(self):
@@ -27,16 +27,19 @@ class ParkingBank:
         for parkingpassbook in self.parking_passbook_list:
             parkingpassbook.set_duration(deposit_duration)
 
-    def getInterestList(self):
-        interestResultList = []
+    def calculateInterest(self):
+        self.interestResults = []
         for parkingpassbook in self.parking_passbook_list:
             name = parkingpassbook.get_name()
             interest = parkingpassbook.calculate_interest()
+            interestResult = [name, interest]
+            self.interestResults.append(interestResult)
 
-            interestResult = InterestResult(name, interest)
-            interestResultList.append(interestResult)
+    def getInterestResults(self):
+        return self.interestResults
 
-        return interestResultList
+    def getInterestResultMetaData(self):
+        return [PB_NAME, PB_INTEREST]
 
 
 class InterestResult:

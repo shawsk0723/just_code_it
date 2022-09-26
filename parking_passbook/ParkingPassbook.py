@@ -50,14 +50,14 @@ class ParkingPassbook:
                         self.interest_rate, self.duration_day)
             low_interest = self.__calculate_interest__(self.deposit_amount - self.max_amount,
                         self.low_interest_rate, self.duration_day)
-            return int(interest + low_interest)
+            return interest + low_interest
 
     # Private Methods
     # 단리 계산 
     def __calculate_interest__(self, deposit_amount, interest_rate, duration_day):
-        return deposit_amount * interest_rate * \
+        interest = deposit_amount * interest_rate * \
                         duration_day / ONE_YEAR_DAY
-
+        return int(interest)
 
 """
 Child Class

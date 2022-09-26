@@ -7,9 +7,13 @@ Author
 - https://blog.naver.com/shawgibal
 """
 
+import traceback
 from tkinter import *            # tkinter 라이브러리에 모든 함수를 사용
 import webbrowser
+
+from Log import LOG
 from ParkingBank import ParkingBank
+from ParkingResultWindow import ParkingResultWindow
 from Version import getVersion
 
 def calculateInterest(depositAmount, depositDuration):
@@ -18,21 +22,26 @@ def calculateInterest(depositAmount, depositDuration):
     parkingBank.setDepositAmount(depositAmount)
     parkingBank.setDepositDuration(depositDuration)
 
-    interestResultList = parkingBank.getInterestList()
+    parkingBank.calculateInterest()
+    interestResults = parkingBank.getInterestResults()
 
+    LOG('-'*40)
     interestResultStr = ""
-    for interestResult in interestResultList:
-        interestResultStr += "{:25s}: {:12.2f}".format(interestResult.getName(), interestResult.getInterest())
+    for interestResult in interestResults:
+        interestResultStr += "{:25s}: {:12.2f}".format(interestResult[0], interestResult[1])
         interestResultStr += "\n"
 
     interestResultStr = interestResultStr[:-1]
+    LOG(interestResultStr)
+    LOG('-'*40)
 
-    print('-'*40)
-    print(interestResultStr)
-    print('-'*40)
+    return parkingBank.getInterestResultMetaData(), interestResults
 
-    return interestResultStr
-
+def displayInterestResult(interestResultHead, interestResultBody):
+    parkingResultWindow = ParkingResultWindow()
+    parkingResultWindow.setHeadRow(interestResultHead)
+    parkingResultWindow.setBodyRows(interestResultBody)
+    parkingResultWindow.display()
 
 def openweb():
     url = "https://blog.naver.com/shawgibal"
@@ -48,7 +57,6 @@ def main():
 
     def btnpress():                            # 함수 btnpress() 정의
         try:
-            url = depositAmountEntry.get()
             # 상태 업데이트
             label.configure(text = '계산 시작')
             # 예치 금액 받아오기
@@ -56,13 +64,13 @@ def main():
             # 예치 기간 받아오기
             depositDuration = int(depositDurationEntry.get())
             # 이자 계산
-            interestResultStr = calculateInterest(depositAmount, depositDuration)
+            interestResultHead, interestResultBody = calculateInterest(depositAmount, depositDuration)
             # 상태 업데이트
             label.configure(text = '계산 완료')
             # 결과 출력
-            resultLabel.configure(text=interestResultStr)
+            displayInterestResult(interestResultHead, interestResultBody)
         except Exception as e:
-            print(e)
+            LOG(traceback.format_exc())
 
     message = Label(window, text = '예치 금액', height=3)
     message.pack()
@@ -85,11 +93,8 @@ def main():
     label = Label(window, text = '진행 상태', height=2)
     label.pack()
 
-    resultLabel = Label(window, text = '계산 결과', height=5)
-    resultLabel.pack()
-
-    Btn = Button(window, text = "코드장인의 코딩해우소 홈페이지",command=openweb)
-    Btn.pack(side=BOTTOM, pady=10)
+    Btn = Button(window, text = "코드장인의 코딩해우소 블로그 바로가기",command=openweb)
+    Btn.pack(side=BOTTOM, pady=20)
 
 
     window.mainloop()
