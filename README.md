@@ -1,6 +1,6 @@
 # just_code_it
 Overvivew
-- 코드장인의 코딩해우소 소스 코드
+- 코드장인의 코딩해우소 예제 코드
 
 Contents
 - parking_passbook
