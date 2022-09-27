@@ -1,7 +1,7 @@
 """
-simple_interest_calculator.py
+SimpleInterestCalculator.py
 
-@ author: 코미남
+@ author: 코드장인
 @ home page: https://blog.naver.com/shawgibal
 """
 
