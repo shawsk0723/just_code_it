@@ -7,6 +7,7 @@ blog: https://blog.naver.com/shawgibal
 
 import os
 from pathlib import Path
+import traceback
 import pdf2image
 
 class Pdf2ImageConverter:
@@ -19,6 +20,8 @@ class Pdf2ImageConverter:
         print("poppler path = " + self.__poppler_path__)
 
     def convert(self, pdfFilePath, outputPath):
+        print("PDF file path = {}".format(pdfFilePath))
+        print("output dir = {}".format(outputPath))
         # 저장할 폴더가 존재하지 않으면 새로 생성
         if not os.path.exists(outputPath):
             os.makedirs(outputPath)
@@ -51,15 +54,19 @@ Test Pdf2ImageConverter
 """
 
 def testPdf2ImageConverter():
-    pdf_file_name = 'PDF 이미지 변환 테스트.pdf'
+    try:
+        pdf_file_name = 'PDF 이미지 변환 테스트.pdf'
 
-    data_dir = os.getcwd() + '\\data'
-    pdf_file_path = data_dir + "\\" + pdf_file_name
-    output_dir = data_dir + "\\" + Path(pdf_file_name).stem + "\\image"
+        data_dir = os.getcwd() + '\\data'
+        pdf_file_path = data_dir + "\\" + pdf_file_name
+        output_dir = data_dir + "\\" + Path(pdf_file_name).stem + "\\image"
 
-    pdf2ImageConverter = Pdf2ImageConverter()
-    image_file_path_list = pdf2ImageConverter.convert(pdf_file_path, output_dir)
-    print(image_file_path_list)
+        pdf2ImageConverter = Pdf2ImageConverter()
+        image_file_path_list = pdf2ImageConverter.convert(pdf_file_path, output_dir)
+        print(image_file_path_list)
+    except Exception as e:
+        print(e)
+        traceback.format_exc(e)
 
 
 if __name__ == '__main__':
