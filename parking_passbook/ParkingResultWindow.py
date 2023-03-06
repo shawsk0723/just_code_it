@@ -26,13 +26,18 @@ class ParkingResultWindow:
 
         # Create an object of Style widget
         style = ttk.Style()
-        style.theme_use('clam')
+        #style.theme_use('clam')
+        style.configure("Treeview", background="black", fieldbackground="black", foreground="white")
+
 
         self.win = win
 
     def setHeadRow(self, headRow):
         treeView = ttk.Treeview(self.win, column=headRow, show='headings', height=5)
         treeView.pack()
+
+        treeView.tag_configure('grayrow', background='lightgrey')
+        treeView.tag_configure('blackrow', background='#E8E8E8')
 
         for i, head in zip(range(len(headRow)), headRow):
             treeView.column("# {}".format(i+1), anchor=CENTER)
@@ -43,7 +48,10 @@ class ParkingResultWindow:
     def setBodyRows(self, bodyRows):
         # Insert the data in Treeview widget
         for bodyRow in bodyRows:
-            self.treeView.insert('', 'end', text="1", values=bodyRow)
+            self.treeView.insert('', 'end', values=bodyRow, tag='blackrow')
+            #self.treeView.insert('', 'end', text="1", values=bodyRow, tags=('grayrow,'))
+            #self.treeView.insert('', 'end', text="1", values=bodyRow, tag='grayrow')
+            #self.treeView.insert('', 'end', text="1", values=bodyRow)
 
 
     def display(self):
