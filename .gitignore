@@ -1,0 +1,5 @@
+parking_passbook/__pycache__/
+youtube_download/.ipynb_checkpoints/
+youtube_download/build/yt-to-mp3-down/
+youtube_download/*.spec
+youtube_download/dist/*.mp3
