@@ -1,0 +1,1 @@
+pyinstaller --onefile --console yt-to-mp3-down.py
